@@ -6,9 +6,9 @@ const sequelize = new Sequelize("cadastros", "root", "Senha123@#2233", {
 });
 
 sequelize.authenticate()
-.then(function(){
+.then(function() {
     console.log("Conexão com o banco de dados realizada com sucesso!")
-}).catch(function(){
+}).catch(function() {
     console.log("Erro: Conexão com o banco de dados não realizada com sucesso!");
 });
 
