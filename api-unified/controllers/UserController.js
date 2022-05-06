@@ -1,4 +1,4 @@
-const User = require('../models/usuarios')
+const User = require('../models/user')
 const { Op } = require("sequelize");
 
 module.exports = {

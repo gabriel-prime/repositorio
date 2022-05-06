@@ -1,22 +1,23 @@
 {
-  "name": "api",
+  "name": "api-unified",
   "version": "1.0.0",
-  "description": "Primeira API",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
-    "express": "^4.17.3",
-    "mongoose": "^6.2.10",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
-    "nodemon": "^2.0.15",
-    "sequelize": "^6.18.0"
+    "nodemon": "^2.0.16",
+    "sequelize": "^6.19.0"
   }
 }
