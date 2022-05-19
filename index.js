@@ -1,13 +1,3 @@
-const router = require('./src/router/userRoute')
-const router2 = require('./src/router/companyRoute')
-const router3 = require('./src/router/positionRoute')
-const router4 = require('./src/router/worksForRoute')
-const User = require('./src/models/user')
-const Friend = require('./src/models/friend')
-const Company = require('./src/models/company')
-const Position = require('./src/models/position')
-const WorksFor = require('./src/models/worksFor')
-require('./src/models/db')
 
 //os pacotes
 const express = require('express');
@@ -25,6 +15,17 @@ require('./models/db');
 //usar os pacotes
 const app = express();
 
+const router = require('./src/router/userRoute')
+const router2 = require('./src/router/companyRoute')
+const router3 = require('./src/router/positionRoute')
+const router4 = require('./src/router/worksForRoute')
+const User = require('./src/models/user')
+const Friend = require('./src/models/friend')
+const Company = require('./src/models/company')
+const Position = require('./src/models/position')
+const WorksFor = require('./src/models/worksFor')
+require('./src/models/db')
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
@@ -38,4 +39,5 @@ app.use("/", router4);
 //abre o servidor
 app.listen(process.env.PORT, () => {
     console.log(`Servidor criado na porta ${process.env.PORT}: http://localhost:${process.env.PORT}"`)
+
 });
