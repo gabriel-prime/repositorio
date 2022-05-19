@@ -21,7 +21,11 @@ module.exports = {
         let id = req.params.id
 
         try {
-            const response = await User.findOne({ where: { user_id: `${id}` } });
+            const response = await User.findOne({
+                where: {
+                    id: `${id}`
+                }
+            });
             res.json(response);
         } catch (error) {
             res.send("erro registrado no console")
@@ -44,7 +48,7 @@ module.exports = {
 
             await User.update(req.body, {
                 where: {
-                  user_id: `${id}`
+                  id: `${id}`
                 }
               })
         
@@ -74,7 +78,11 @@ module.exports = {
     async delete(req,res){
         let id = req.params.id;
         try {
-            await User.destroy({ where: { user_id: `${id}` } });
+            await User.destroy({
+                where: {
+                    id: `${id}`
+                }
+            });
             return console.log('Usuário deletado') & res.json('ok')
         } catch (error) {
             res.send("erro registrado no console")
@@ -85,7 +93,11 @@ module.exports = {
         //vamos encontrar registros que contem certa letra
         try {
             let letra = req.params.letra
-           const response = await User.findAll({where:{name:{[Op.like]: `%${letra}%`}}}) 
+           const response = await User.findAll({
+               where:{
+                   name: { [Op.like]: `%${letra}%` }
+                }
+            }) 
            res.json(response)
         } catch (error) {
             res.send("erro registrado no console")
