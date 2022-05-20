@@ -10,7 +10,7 @@ module.exports = {
      *
      * Example:
      */ 
-    await queryInterface.addColumn('friend', 'melhoramigo', { 
+    await queryInterface.addColumn('friends', 'melhoramigo', { 
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false 
@@ -19,6 +19,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-      await queryInterface.removeColumn('friend', 'melhoramigo')
+      await queryInterface.removeColumn('friends', 'melhoramigo')
   }
 };
