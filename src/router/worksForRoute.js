@@ -11,6 +11,15 @@ routes.get('/worksfor', WorksForController.findAll);
 //buscar dados pela id
 routes.get('/worksfor/:id', WorksForController.findById);
 
+//buscar dados pela id do employee
+routes.get('/worksfor/employee/:id', WorksForController.findByIdEmployee);
+
+//buscar dados pela id do position
+routes.get('/worksfor/position/:id', WorksForController.findByIdPosition);
+
+//buscar dados pela id da company
+routes.get('/worksfor/company/:id', WorksForController.findByIdCompany);
+
 //buscar dados pela letra
 routes.get('/worksfor/find/:letra', WorksForController.findByLetter);
 

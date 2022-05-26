@@ -23,7 +23,7 @@ module.exports = {
         try {
             const response = await User.findOne({
                 where: {
-                    id: `${id}`
+                    id: `${id}` 
                 }
             });
             res.json(response);
