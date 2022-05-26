@@ -1,7 +1,9 @@
-/* const companyRoute = require('./companyRoute');
-const friendRoute = require('./friendRoute');
-const positionRoute = require('./positionRoute');
-const userRoute = require('./userRoute');
+const academicRoute = require("./academicRoute");
+const courseRoute = require("./courseRoute");
+const uniRoute = require("./uniRoute");
+const userRoute = require("./userRoute");
+const friendRoute = require("./friendRoute");
 
-
-module.exports = companyRoute, friendRoute, positionRoute, userRoute */
+module.exports = [
+    academicRoute, courseRoute, uniRoute, userRoute, friendRoute
+]

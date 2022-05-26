@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('./db');
 
-const User = db.define('users', {
-    user_id: {
+const Course = db.define('courses', {
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -12,18 +12,10 @@ const User = db.define('users', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    surname: {
-        type: Sequelize.STRING,
+    durationInMonths: {
+        type: Sequelize.INTEGER,
         allowNull: false
-    },
-    dataNasc: {
-        type: Sequelize.DATEONLY,
-        allowNull: false
-    },
-},
-    {
-        freezeTableName: true
     }
-);
+})
 
-module.exports = User;
+module.exports = Course;
