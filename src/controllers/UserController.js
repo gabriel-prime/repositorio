@@ -1,4 +1,4 @@
-const User = require('../models/user')
+const User = require('../../src/models/user')
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -28,17 +28,24 @@ module.exports = {
             });
             res.json(response);
         } catch (error) {
-            res.send("erro registrado no console")
             console.log(error)
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Erro: Não foi possível achar usuário"
+            })
         }
     },
     async findAll(req,res) {
         try {
+            console.log('oi')
             const response = await User.findAll();
             res.json(response);
         } catch (error) {
-            res.send("erro registrado no console")
             console.log(error)
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Erro: Não foi possível achar usuários"
+            })
         }
     },
     async updateById(req,res){
@@ -50,15 +57,18 @@ module.exports = {
                 where: {
                   id: `${id}`
                 }
-              })
+            })
         
         return res.json({
             erro:false,
             mensagem:"Usuário atualizado com sucesso"
         })    
         } catch (error) {
-            res.send("erro registrado no console")
             console.log(error)
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Erro: Não foi possível atualizar usuário"
+            })
         }
     },
     async updateAll(req,res){
@@ -71,8 +81,11 @@ module.exports = {
                 mensagem:"Usuário atualizado com sucesso"
             })
         } catch (error) {
-            res.send("erro registrado no console")
             console.log(error)
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Erro: Não foi possível atualizar usuário"
+            })
         }
     },
     async delete(req,res){
@@ -85,23 +98,31 @@ module.exports = {
             });
             return console.log('Usuário deletado') & res.json('ok')
         } catch (error) {
-            res.send("erro registrado no console")
             console.log(error)
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Erro: Não foi possível deletar usuário"
+            })
         }
     },
     async findByLetter(req,res){
         //vamos encontrar registros que contem certa letra
         try {
-            let letra = req.params.letra
+            let letter = req.params.letter
            const response = await User.findAll({
-               where:{
-                   name: { [Op.like]: `%${letra}%` }
+               where: {
+                   name: {
+                       [Op.like]: `%${letter}%`
+                    }
                 }
             }) 
            res.json(response)
         } catch (error) {
-            res.send("erro registrado no console")
             console.log(error)
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Erro: Não foi possível achar usuário"
+            })
         }
     }
 }

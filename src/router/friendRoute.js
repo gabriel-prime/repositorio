@@ -1,36 +1,19 @@
 const express = require('express')
 const routes = express.Router()
-const UserController = require('./UserController')
-const FriendController = require('./FriendController')
-
-//cadastrar dados
-routes.post('/add', UserController.add);
-
-//buscar todos dados
-routes.get('/usuarios', UserController.findAll);
-
-//buscar dados pela id
-routes.get('/usuario/:id', UserController.findById);
-
-//buscar dados pela letra
-routes.get('/usuario/find/:letra', UserController.findByLetter);
-
-//atualizar dados pelo id
-routes.put('/usuario/update/:id', UserController.updateById);
-
-//atualizar todos dados
-routes.put('/usuarios/update/', UserController.updateAll);
-
-//deletar dados
-routes.delete('/usuario/delete/:id', UserController.delete);
+const FriendController = require('../controllers/FriendController')
 
 //adicionar amigo
 routes.post('/add/friend', FriendController.add);
 
 //achar amigos de uma pessoa
-routes.get('/friends/:id', FriendController.findById);
+routes.get('/friend/:id', FriendController.findById);
+
+routes.get('/friend/:letter', FriendController.findByLetter);
 
 //atualizar amizades
 routes.put('/friend/update/:id', FriendController.updateById);
+
+//deletar amizades
+routes.delete('/friend/delete/:id', FriendController.delete);
 
 module.exports = routes

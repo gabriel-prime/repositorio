@@ -2,25 +2,26 @@ const express = require('express')
 const routes = express.Router()
 const UserController = require('../controllers/UserController')
 
-//cadastrar dados
+//cadastrar usuarios
 routes.post('/add', UserController.add);
 
-//buscar todos dados
+//buscar todos usuarios
 routes.get('/usuarios', UserController.findAll);
 
-//buscar dados pela id
+//buscar usuario pela id
 routes.get('/usuario/:id', UserController.findById);
 
-//buscar dados pela letra
-routes.get('/usuario/find/:letra', UserController.findByLetter);
+//buscar usuario pela letra
+routes.get('/usuario/find/:letter', UserController.findByLetter);
 
-//atualizar dados pelo id
+//atualizar usuarios pelo id
 routes.put('/usuario/update/:id', UserController.updateById);
 
-//atualizar todos dados
+//atualizar todos usuarios
 routes.put('/usuarios/update/', UserController.updateAll);
 
-//deletar dados
+//deletar usuarios
 routes.delete('/usuario/delete/:id', UserController.delete);
 
 module.exports = routes
+
