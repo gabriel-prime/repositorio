@@ -3,7 +3,8 @@ const User = require('../models/user');
 const Position = require('../models/position');
 const Company = require('../models/company');
 const { Op } = require("sequelize");
-const db = require('../models/db')
+const db = require('../models/db');
+const { models } = require('mongoose');
 
 module.exports = {
     async add(req, res) {
@@ -24,11 +25,11 @@ module.exports = {
     async findById(req, res) {
         try {
             let id = req.params.id
-            
-                WorksFor.belongsTo(User, { foreignKey: 'employee_id' })
-                WorksFor.belongsTo(Position, { foreignKey: 'position_id' })
-                WorksFor.belongsTo(Company, { foreignKey: 'company_id' })
-            
+
+            WorksFor.belongsTo(User, { foreignKey: 'employee_id' })
+            WorksFor.belongsTo(Position, { foreignKey: 'position_id' })
+            WorksFor.belongsTo(Company, { foreignKey: 'company_id' })
+
 
             const response = await WorksFor.findAll({
                 where: {
@@ -45,7 +46,7 @@ module.exports = {
                         model: Company
                     },
 
-                ]    
+                ]
             })
             res.json(response);
         } catch (error) {
@@ -113,36 +114,137 @@ module.exports = {
     async findByLetter(req, res) {
         //vamos encontrar registros que contem certa letra
         try {
-            let letra = req.params.letra
-            let id = req.params.id
-            
-            if (!WorksFor.hasAlias('employee') || !WorksFor.hasAlias('position') || !WorksFor.hasAlias('company')) {
-                WorksFor.belongsTo(User, { as: 'employee', foreignKey: 'employee_id' })
-                WorksFor.belongsTo(Position, { as: 'position', foreignKey: 'position_id' })
-                WorksFor.belongsTo(Company, { as: 'company', foreignKey: 'company_id' })
-            }
+
+            const { letra } = req.params
+
+            WorksFor.belongsTo(User, { foreignKey: 'employee_id' })
+            WorksFor.belongsTo(Position, { foreignKey: 'position_id' })
+            WorksFor.belongsTo(Company, { foreignKey: 'company_id' })
 
             const response = await WorksFor.findAll({
-                include: [{
-                    employee_id: {
-                        model: 'user',
-                        required: true,
-                        attributes: ['name']
-                    },
-                    position_id: {
-                        model: 'position',
-                        required: true,
-                        attributes: ['name']
-                    },
-                     company_id: {
-                         model: 'company',
-                         required: true,
-                         attributes: ['name']
-                     }
-                    
-                }]
+                where: {
+                    [Op.or]: [
+                        {
+                            '$User.name$': { [Op.like]: `%${letra}%` }
+                        },
+                        {
+                            '$Company.name$': { [Op.like]: `%${letra}%` }
+                        },
+                        {
+                            '$Position.name$': { [Op.like]: `%${letra}%` }
+                        }
+                    ]
+                },
+                include: [
+                    User,
+                    Position,
+                    Company
+                ]
             })
+
+
             res.json(response)
+        } catch (error) {
+            res.send("Erro registrado no console")
+            console.log(error)
+        }
+    },
+    async findByIdEmployee(req, res) {
+        try {
+            let id = req.params.id
+
+            WorksFor.belongsTo(User, { foreignKey: 'employee_id' })
+            WorksFor.belongsTo(Position, { foreignKey: 'position_id' })
+            WorksFor.belongsTo(Company, { foreignKey: 'company_id' })
+
+
+            const response = await WorksFor.findAll({
+                where: {
+                    employee_id: `${id}`
+                },
+                attributes: ['id', 'employee_id', 'position_id', 'company_id'],
+
+                include: [
+                    {
+                        model: User,
+                        attributes: ['id', 'name', 'surname', 'age']
+                    },
+                    {
+                        model: Position,
+                        attributes: ['id', 'name']
+                    },
+                    {
+                        model: Company,
+                        attributes: ['id', 'name', 'start']
+                    },
+
+                ]
+            })
+            res.json(response);
+        } catch (error) {
+            res.send("erro registrado no console")
+            console.log(error)
+        }
+    },
+    async findByIdPosition(req, res) {
+        try {
+            let id = req.params.id
+
+            WorksFor.belongsTo(User, { foreignKey: 'employee_id' })
+            WorksFor.belongsTo(Position, { foreignKey: 'position_id' })
+            WorksFor.belongsTo(Company, { foreignKey: 'company_id' })
+
+
+            const response = await WorksFor.findAll({
+                where: {
+                    position_id: `${id}`
+                },
+                include: [
+                    {
+                        model: User
+                    },
+                    {
+                        model: Position
+                    },
+                    {
+                        model: Company
+                    },
+
+                ]
+            })
+            res.json(response);
+        } catch (error) {
+            res.send("erro registrado no console")
+            console.log(error)
+        }
+    },
+    async findByIdCompany(req, res) {
+        try {
+            let id = req.params.id
+
+            WorksFor.belongsTo(User, { foreignKey: 'employee_id' })
+            WorksFor.belongsTo(Position, { foreignKey: 'position_id' })
+            WorksFor.belongsTo(Company, { foreignKey: 'company_id' })
+
+
+            const response = await WorksFor.findAll({
+                where: {
+                    company_id: `${id}`
+                },
+                include: [
+                    {
+                        model: User
+                    },
+                    {
+                        model: Position
+                    },
+                    {
+                        model: Company
+                    },
+
+                ]
+            })
+            res.json(response);
         } catch (error) {
             res.send("erro registrado no console")
             console.log(error)
